@@ -22,12 +22,59 @@
     <script src="lib/angular-moment/angular-moment.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: arial;
+            font-size :11px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #top, #bottom {
+            border:1px solid gray;
+        }
+        #top {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 2;
+        }
+        #toolbar {
+            position: absolute;
+            top: 0px;
+            width: 980px;
+            z-index: 4;
+            margin: 1px;
+            padding: 3px;
+            background-color: #e2e2e2;
+            box-sizing: border-box;
+        }
+        div.cursor {
+            position: absolute;
+            border:1px solid red;
+            border-width: 1px 0 0 1px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        input[type=radio] {
+            margin-left: 30px;
+        }
+    </style>
 </head>
 
 <body ng-app="mychat">

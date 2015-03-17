@@ -11,9 +11,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // 'mychat.services' is found in services.js
 // 'mychat.controllers' is found in controllers.js
-angular.module('mychat', ['ionic', 'firebase', 'angularMoment', 'mychat.controllers', 'mychat.services'])
+angular.module('mychat', ['ionic', 'firebase', 'angularMoment', 'mychat.controllers', 'mychat.services', 'ngCordova'])
 
-.run(function ($ionicPlatform, $rootScope, $location, Auth, $ionicLoading) {
+.run(function ($ionicPlatform, $rootScope, $location, Auth, $ionicLoading, $cordovaPush) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -30,9 +30,27 @@ angular.module('mychat', ['ionic', 'firebase', 'angularMoment', 'mychat.controll
         $rootScope.firebaseUrl = firebaseUrl;
         $rootScope.displayName = null;
 
+        $rootScope.$on('$cordovaPush:notificationReceived', function(event, notification) {
+            console.log("notification");
+            console.log(event);
+            console.log(notification);
+            navigator.notification.alert(notification.alert);
+
+            var snd = new Media(notification.sound);
+            snd.play();
+
+            $cordovaPush.setBadgeNumber(notification.badge).then(function(result) {
+                // Success!
+            }, function(err) {
+                // An error occurred. Show a message to the user
+            });
+
+        });
+
         Auth.$onAuth(function (authData) {
             if (authData) {
                 console.log("Logged in as:", authData.uid);
+                $location.path('/tab/whiteboard');
             } else {
                 console.log("Logged out");
                 $ionicLoading.hide();
@@ -49,13 +67,13 @@ angular.module('mychat', ['ionic', 'firebase', 'angularMoment', 'mychat.controll
         }
 
 
-        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+        /*$rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
             // We can catch the error thrown when the $requireAuth promise is rejected
             // and redirect the user back to the home page
             if (error === "AUTH_REQUIRED") {
                 $location.path("/login");
             }
-        });
+        });*/
     });
 })
 
@@ -122,6 +140,16 @@ angular.module('mychat', ['ionic', 'firebase', 'angularMoment', 'mychat.controll
             }
         }
     })
+
+    .state('tab.whiteboard', {
+        url: '/whiteboard',
+        views: {
+            'tab-whiteboard': {
+                templateUrl: 'templates/tab-whiteboard.html',
+                controller: 'WhiteboardCtrl'
+            }
+        }
+    });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');

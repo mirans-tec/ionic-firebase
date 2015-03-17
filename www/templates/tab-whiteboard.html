@@ -1,0 +1,21 @@
+<ion-view view-title="Whiteboard" id="white_board">
+    <!--<ion-content scroll="false" >-->
+    <div>
+        <canvas id="bottom" width="400" height="980"></canvas>
+        <canvas id="top" width="400" height="980"></canvas>
+    </div>
+    <div id="toolbar">
+        <button id="clear" hotkey="67">Clear (hotkey: c)</button>
+        <button id="undo" hotkey="90">Undo (hotkey: z)</button>
+
+        <strong>Brush:</strong>
+        <input type="radio" name="brush" color="#000000" thickness="1" hotkey="66" checked="checked" /> Black (hotkey: b)
+        <input type="radio" name="brush" color="#008000" thickness="1" hotkey="71" /> Green (hotkey: g)
+        <input type="radio" name="brush" color="#FF0000" thickness="1" hotkey="82" /> Red (hotkey: r)
+        <input type="radio" name="brush" color="#0000FF" thickness="1" hotkey="76" /> Blue (hotkey: l)
+        <input type="radio" name="brush" color="#FFFFFF" thickness="20" hotkey="69" /> Eraser (hotkey: e)
+    </div>
+<!--</ion-content>-->
+
+
+</ion-view>
